@@ -1,6 +1,6 @@
 from board import *
 
-b = Board()
+b = Board(board =[0, 0, 0, 0, 1, 0, 0, 4, 4, 4, 4, 4, 4, 0],withStealing=True)
 
 player1 = True
 
@@ -14,7 +14,12 @@ while(not b.isOver()):
 
     bucket_num = int(input())
     b.makeMove(bucket_num - 1, player1)
-    
-    player1 = not player1
+
+    if(not b.getPlayAgain):
+        player1 = not player1
+
+
+b.finalMove(not player1)    
+b.printBoard()    
 
 

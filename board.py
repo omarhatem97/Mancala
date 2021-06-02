@@ -1,10 +1,15 @@
+import builtins
+
+
 class Board(object):
 
-    def __init__(self, board=None):
+    def __init__(self, board=None, withStealing =False):
         # save last values of board
         self.__playagain = False
         self.score = []
-     
+        self.__withStealing = withStealing
+
+
         if (board):
             self.board = board[:]
         # setup board
@@ -28,9 +33,53 @@ class Board(object):
         print("")
 
 
+    def getPlayAgain(self):
+        return self.__playagain
+
 
     def getScore(self):
         return [self.board[6], self.board[13]]
+
+
+    def get_total_buckets(self,player1):
+        """
+        get total bucket of the player
+        """
+        sum = 0
+        if(player1):
+            for bucket in range(6):
+                sum += self.board[bucket]
+
+        else:
+            for bucket in range(7, 13, 1):
+                sum += self.board[bucket]
+
+        return sum
+
+
+    def finalMove (self, player1):
+        """
+            if game is over, it adds the buckets of the opponent player to his store
+        """
+        sum = self.get_total_buckets(player1)
+        if(player1):
+            self.board[6]+=sum
+
+        else:
+            self.board[13] += sum
+
+        self.clear_buckets()
+
+
+
+    def clear_buckets(self):
+        """
+            clear opponent and players bucket (make them zeroes)
+        """
+        for i in range(14):
+            if(i == 6 or i== 13):
+                continue
+            self.board[i] = 0
 
 
     def makeMove(self, bucket, player1):
@@ -47,14 +96,15 @@ class Board(object):
                 stones -= 1
             self.board[copy_bucket] = 0
 
-                # play  with stealing
-            if bucket < 6 and self.board[bucket] == 1 and self.board[12 - bucket] != 0:
-                self.board[6] += 1 + self.board[12 - bucket]
-                self.board[12 - bucket] = 0
-                self.board[bucket] = 0
+            # play  with stealing
+            if(self.__withStealing):
+                if player1 and self.board[bucket] == 1 and self.board[12- bucket] != 0:
+                    self.board[6] += 1 + self.board[12 - bucket]
+                    self.board[12 - bucket] = 0
+                    self.board[bucket] = 0
 
-            if bucket == 6:
-                self.__playagain = True
+                if bucket == 6:
+                    self.__playagain = True
         # turn of Ai (7--->12 buckets)
         else:
             
@@ -72,27 +122,23 @@ class Board(object):
             print("copy bucket:", copy_bucket)
             self.board[copy_bucket] = 0
 
-                # play  with stealing
-            if bucket > 6 and bucket != 13 and self.board[bucket] == 1 and self.board[12 - bucket] != 0:
-                self.board[13] += 1 + self.board[12 - bucket]
-                self.board[12 - bucket] = 0
-                self.board[bucket] = 0
+            # play  with stealing
+            if(self.__withStealing):
+                if not player1 and bucket != 13 and self.board[bucket] == 1 and self.board[12 - bucket] != 0:
+                    self.board[13] += 1 + self.board[12 - bucket]
+                    self.board[12 - bucket] = 0
+                    self.board[bucket] = 0
 
-            if bucket == 13:
-                self.__playagain = True
+                if bucket == 13:
+                    self.__playagain = True
 
 
     def isOver(self):
         # human buckets are zero
         # ai buckets are zero
-        sum_human = 0
-        sum_ai = 0
-
-        for bucket in range(6):
-            sum_human += self.board[bucket]
-
-        for bucket in range(7, 13, 1):
-            sum_ai += self.board[bucket]
+        player1 = True
+        sum_human = self.get_total_buckets(player1)
+        sum_ai = self.get_total_buckets(not player1)
 
         if (sum_human == 0 or sum_ai == 0):
             return True
