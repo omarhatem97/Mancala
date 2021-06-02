@@ -3,42 +3,49 @@ class Board(object):
     def __init__(self, board=None):
         # save last values of board
         self.__playagain = False
+        self.score = []
      
         if (board):
             self.board = board[:]
-
         # setup board
         else:
             self.board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
             
       
     def printBoard(self):
+
         print("\t", end="")
-        for i in range(7, 13):
-            print(str(self.board[i]), end= "\t"),
+        for i in range(12, 6, -1):
+            print(str(self.board[i]), end= "\t")
 
         print("\n")
         print(str(self.board[13]) + "\t"*7 + str(self.board[6]))
 
         print("\t", end="")
         for i in range(6):
-            print(str(self.board[i]),end= "\t"),
+            print(str(self.board[i]),end= "\t")
+
+        print("")
 
 
-    def makeMove(self, bucket):
-        # copy_bucket=bucket
-        stones = self.board[bucket]
 
+    def getScore(self):
+        return [self.board[6], self.board[13]]
+
+
+    def makeMove(self, bucket, player1):
         # turn of human (0-->5 buckets)
-        if bucket < 6:
+        if player1:
+            copy_bucket=bucket
+            stones = self.board[bucket]
             while (stones > 0):
-                bucket += 1
-                bucket = bucket % 14
+                bucket = (bucket+1) % 14
                 if bucket == 13:
                     continue  # dont add stone in the Ai store
                 else:
                     self.board[bucket] += 1  # add stones in each bucket
                 stones -= 1
+            self.board[copy_bucket] = 0
 
                 # play  with stealing
             if bucket < 6 and self.board[bucket] == 1 and self.board[12 - bucket] != 0:
@@ -50,14 +57,20 @@ class Board(object):
                 self.__playagain = True
         # turn of Ai (7--->12 buckets)
         else:
+            
+            bucket = bucket + 7
+            stones = self.board[bucket]
+            copy_bucket = bucket
             while (stones > 0):
-                bucket += 1
-                bucket = bucket % 14
+                bucket = (bucket+1) % 14
                 if bucket == 6:
                     continue  # dont add stone in the humman store
                 else:
                     self.board[bucket] += 1  # add stones in each bucket
+
                 stones -= 1
+            print("copy bucket:", copy_bucket)
+            self.board[copy_bucket] = 0
 
                 # play  with stealing
             if bucket > 6 and bucket != 13 and self.board[bucket] == 1 and self.board[12 - bucket] != 0:
@@ -67,6 +80,7 @@ class Board(object):
 
             if bucket == 13:
                 self.__playagain = True
+
 
     def isOver(self):
         # human buckets are zero
