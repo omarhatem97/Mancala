@@ -3,16 +3,27 @@ class Board(object):
     def __init__(self, board=None):
         # save last values of board
         self.__playagain = False
+     
         if (board):
             self.board = board[:]
 
         # setup board
         else:
             self.board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
-            # self.board = [0 for i in range(14)]
-            # for i in range(0, 6, 1): self.board[i] = 4
-            # for i in range(7, 13, 1): self.board[i] = 4
-            return
+            
+      
+    def printBoard(self):
+        print("\t", end="")
+        for i in range(7, 13):
+            print(str(self.board[i]), end= "\t"),
+
+        print("\n")
+        print(str(self.board[13]) + "\t"*7 + str(self.board[6]))
+
+        print("\t", end="")
+        for i in range(6):
+            print(str(self.board[i]),end= "\t"),
+
 
     def makeMove(self, bucket):
         # copy_bucket=bucket
@@ -71,4 +82,5 @@ class Board(object):
 
         if (sum_human == 0 or sum_ai == 0):
             return True
+
         return False
