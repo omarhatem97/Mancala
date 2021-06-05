@@ -1,5 +1,5 @@
 import builtins
-
+import Constants
 
 class Board(object):
 
@@ -14,7 +14,7 @@ class Board(object):
             self.board = board[:]
         # setup board
         else:
-            self.board = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
+            self.board = Constants.DEFAULT_BOARD
             
       
     def printBoard(self):
