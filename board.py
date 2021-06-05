@@ -1,6 +1,7 @@
 import builtins
 import Constants
 
+from Constants import AI, HUMAN
 class Board(object):
 
     def __init__(self, board=None, withStealing =False):
@@ -41,12 +42,12 @@ class Board(object):
         return [self.board[6], self.board[13]]
 
 
-    def get_total_buckets(self,player1):
+    def get_total_buckets(self,player):
         """
         get total bucket of the player
         """
         sum = 0
-        if(player1):
+        if player  == HUMAN:
             for bucket in range(6):
                 sum += self.board[bucket]
 
@@ -57,12 +58,12 @@ class Board(object):
         return sum
 
 
-    def finalMove (self, player1):
+    def finalMove (self, player):
         """
             if game is over, it adds the buckets of the opponent player to his store
         """
-        sum = self.get_total_buckets(player1)
-        if(player1):
+        sum = self.get_total_buckets(player)
+        if player == HUMAN:
             self.board[6]+=sum
 
         else:
@@ -82,9 +83,9 @@ class Board(object):
             self.board[i] = 0
 
 
-    def makeMove(self, bucket, player1):
+    def makeMove(self, bucket, player):
         # turn of human (0-->5 buckets)
-        if player1:
+        if player == HUMAN:
             copy_bucket=bucket
             stones = self.board[bucket]
             while (stones > 0):
@@ -98,7 +99,7 @@ class Board(object):
 
             # play  with stealing
             if(self.__withStealing):
-                if player1 and self.board[bucket] == 1 and self.board[12- bucket] != 0:
+                if  self.board[bucket] == 1 and self.board[12- bucket] != 0:
                     self.board[6] += 1 + self.board[12 - bucket]
                     self.board[12 - bucket] = 0
                     self.board[bucket] = 0
@@ -124,7 +125,7 @@ class Board(object):
 
             # play  with stealing
             if(self.__withStealing):
-                if not player1 and bucket != 13 and self.board[bucket] == 1 and self.board[12 - bucket] != 0:
+                if  bucket != 13 and self.board[bucket] == 1 and self.board[12 - bucket] != 0:
                     self.board[13] += 1 + self.board[12 - bucket]
                     self.board[12 - bucket] = 0
                     self.board[bucket] = 0
@@ -136,9 +137,9 @@ class Board(object):
     def isOver(self):
         # human buckets are zero
         # ai buckets are zero
-        player1 = True
-        sum_human = self.get_total_buckets(player1)
-        sum_ai = self.get_total_buckets(not player1)
+        
+        sum_human = self.get_total_buckets(HUMAN)
+        sum_ai = self.get_total_buckets(AI)
 
         if (sum_human == 0 or sum_ai == 0):
             return True
