@@ -4,12 +4,12 @@ b = Board(board =[0, 0, 0, 0, 1, 0, 0, 4, 4, 4, 4, 4, 4, 0],withStealing=True)
 
 player1 = True
 
-def test(b):
-    b.clear_buckets()
+# def test(b):
+#     b.clear_buckets()
 
-a = deepcopy(b)
-test(a)
-b.printBoard()
+# a = deepcopy(b)
+# test(a)
+# b.printBoard()
 
 while(not b.isOver()):
     b.printBoard()

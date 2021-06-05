@@ -109,7 +109,7 @@ class Board(object):
         # turn of Ai (7--->12 buckets)
         else:
             
-            bucket = bucket + 7
+           #bucket = bucket + 7
             stones = self.board[bucket]
             copy_bucket = bucket
             while (stones > 0):
@@ -137,7 +137,7 @@ class Board(object):
     def isOver(self):
         # human buckets are zero
         # ai buckets are zero
-        
+
         sum_human = self.get_total_buckets(HUMAN)
         sum_ai = self.get_total_buckets(AI)
 
