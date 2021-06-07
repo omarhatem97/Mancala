@@ -1,4 +1,5 @@
 import builtins
+from math import cos
 import Constants
 
 from Constants import AI, HUMAN
@@ -21,17 +22,30 @@ class Board(object):
     def printBoard(self):
 
         print("\t", end="")
+        print(Constants.AI_INDECIS)
+        # print('\n')
+        print('==============================================================')
+
+        print("\t", end="")
+
         for i in range(12, 6, -1):
+            
             print(str(self.board[i]), end= "\t")
 
         print("\n")
+
+
         print(str(self.board[13]) + "\t"*7 + str(self.board[6]))
 
         print("\t", end="")
+        
         for i in range(6):
             print(str(self.board[i]),end= "\t")
 
-        print("")
+        print('\n', end='')
+        print('==============================================================')
+        print(Constants.HUMAN_INDECIS)
+        print()
 
 
     def getPlayAgain(self):
@@ -84,6 +98,8 @@ class Board(object):
 
 
     def makeMove(self, bucket, player):
+
+        self.__playagain = False
         # turn of human (0-->5 buckets)
         if player == HUMAN:
             copy_bucket=bucket
@@ -94,12 +110,13 @@ class Board(object):
                     continue  # dont add stone in the Ai store
                 else:
                     self.board[bucket] += 1  # add stones in each bucket
-                stones -= 1
+                    stones -= 1
             self.board[copy_bucket] = 0
 
             # play  with stealing
             if(self.__withStealing):
-                if  self.board[bucket] == 1 and self.board[12- bucket] != 0:
+                 
+                if  self.board[bucket] == 1 and self.board[12- bucket] != 0 and bucket < 6:
                     self.board[6] += 1 + self.board[12 - bucket]
                     self.board[12 - bucket] = 0
                     self.board[bucket] = 0
@@ -118,15 +135,14 @@ class Board(object):
                     continue  # dont add stone in the humman store
                 else:
                     self.board[bucket] += 1  # add stones in each bucket
-
-                stones -= 1
-            print("copy bucket:", copy_bucket)
+                    stones -= 1
+            #print("copy bucket:", copy_bucket)
             self.board[copy_bucket] = 0
 
             # play  with stealing
             if(self.__withStealing):
-                if  bucket != 13 and self.board[bucket] == 1 and self.board[12 - bucket] != 0:
-                    self.board[13] += 1 + self.board[12 - bucket]
+                if  bucket != 13 and self.board[bucket] == 1 and self.board[12 - bucket] != 0 and bucket > 6 and bucket != 13:
+                    self.board[13] += 1 + self.board[12 - bucket] 
                     self.board[12 - bucket] = 0
                     self.board[bucket] = 0
 

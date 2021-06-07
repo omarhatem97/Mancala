@@ -139,14 +139,13 @@ class Player:
 
 
 # Testing 
-# b = Board(board =[4, 4, 4, 4, 4, 4, 1, 4, 4, 4, 4, 4, 4, 0],withStealing=True)
+b = Board(board =Constants.DEFAULT_BOARD,withStealing=True)
 
-# b.printBoard()
-# p = Player(Constants.AI, 4)
+b.printBoard()
+p = Player(Constants.AI, 4)
 
 
-# print (p.cost(b))
 
-# # best = p.best_move(b)
+best = p.best_move(b)[1] + 1 
 
-# # print(best)
+print(best)
