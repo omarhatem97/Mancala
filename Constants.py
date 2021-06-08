@@ -27,3 +27,10 @@ HUMAN_STORE = 6
 
 AI_BUCKETS = [7,8,9,10,11,12]
 AI_STORE = 13
+
+
+
+HUMAN_INDECIS = '\t1\t2\t3\t4\t5\t6\t'
+
+
+AI_INDECIS = '13\t12\t11\t10\t9\t8\t'

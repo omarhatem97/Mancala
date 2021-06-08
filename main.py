@@ -1,8 +1,10 @@
+from player import Player
 from board import *
 from copy import deepcopy
-b = Board(board =[0, 0, 0, 0, 1, 0, 0, 4, 4, 4, 4, 4, 4, 0],withStealing=True)
+b = Board(board =[0,0,0,0,0,8,13,0,0,5,9,0,0,18],withStealing=True)
 
-player1 = True
+# b = Board(board =Constants.DEFAULT_BOARD,withStealing=True)
+
 
 # def test(b):
 #     b.clear_buckets()
@@ -11,21 +13,46 @@ player1 = True
 # test(a)
 # b.printBoard()
 
+
+
+print("WELCOME TO MANCALA GAME!!")
+print ("Please choose player to start\n 1- Human\n2- AI")
+player = input()
+
+ai_player = Player(Constants.AI, 1)
+
+if player == '1':
+    player = Constants.HUMAN
+elif player =='2':
+    player = Constants.AI 
+
+
 while(not b.isOver()):
     b.printBoard()
-    if(player1):
-        print("player 1 turn, enter bucket num:")
+
+   
+
+    if player == Constants.HUMAN:
+        print("HUMAN  turn, enter bucket num:")
+        move = int(input())
+        player_name = 'HUMAN'
+
+
     else:
-        print("player 2 turn, enter bucket num:")
+        move = ai_player.best_move(b)[1] + 1
+        player_name = 'AI'
 
-    bucket_num = int(input())
-    b.makeMove(bucket_num - 1, player1)
+    
+    print(f'this is {player_name} turn, and choose number {move}\n')
+    b.makeMove(move - 1, player)
 
-    if(not b.getPlayAgain):
-        player1 = not player1
+   
+
+    if(not b.getPlayAgain()):
+        player = not player
 
 
-b.finalMove(not player1)    
+b.finalMove( player)    
 b.printBoard()
 
 player_score , AI_score = b.getScore()
