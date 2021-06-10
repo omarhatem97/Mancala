@@ -1,7 +1,11 @@
 from player import Player
 from board import *
 from copy import deepcopy
-# b = Board(board =[0,0,0,0,0,8,13,0,0,5,9,0,0,18],withStealing=True)
+
+
+
+
+# b = Board(board =[0,0,0,0,0,1,24,0,0,0,5,0,1,16],withStealing=True)
 
 
 
@@ -30,8 +34,11 @@ if player == '1':
 elif player =='2':
     player = Constants.AI 
 
+last_player = not player
 
 while(not b.isOver()):
+
+    # last_player  = not last_player
     b.printBoard()
 
    
@@ -54,13 +61,14 @@ while(not b.isOver()):
     print(f'this is {player_name} turn, and choose number {move}\n')
     b.makeMove(move - 1, player)
 
-   
+    if b.isOver():
+        last_player = player
 
     if(not b.getPlayAgain()):
         player = not player
 
 
-b.finalMove(player)    
+b.finalMove(not last_player)    
 b.printBoard()
 
 player_score , AI_score = b.getScore()

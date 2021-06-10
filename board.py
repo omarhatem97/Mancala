@@ -102,8 +102,10 @@ class Board(object):
         self.__playagain = False
         # turn of human (0-->5 buckets)
         if player == HUMAN:
+            
             copy_bucket=bucket
             stones = self.board[bucket]
+            self.board[copy_bucket] = 0
             while (stones > 0):
                 bucket = (bucket+1) % 14
                 if bucket == 13:
@@ -111,7 +113,7 @@ class Board(object):
                 else:
                     self.board[bucket] += 1  # add stones in each bucket
                     stones -= 1
-            self.board[copy_bucket] = 0
+            
 
             # play  with stealing
             if(self.__withStealing):
@@ -129,6 +131,7 @@ class Board(object):
            #bucket = bucket + 7
             stones = self.board[bucket]
             copy_bucket = bucket
+            self.board[copy_bucket] = 0
             while (stones > 0):
                 bucket = (bucket+1) % 14
                 if bucket == 6:
@@ -136,8 +139,6 @@ class Board(object):
                 else:
                     self.board[bucket] += 1  # add stones in each bucket
                     stones -= 1
-            #print("copy bucket:", copy_bucket)
-            self.board[copy_bucket] = 0
 
             # play  with stealing
             if(self.__withStealing):
