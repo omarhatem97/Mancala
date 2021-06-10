@@ -3,25 +3,24 @@ from board import *
 from copy import deepcopy
 # b = Board(board =[0,0,0,0,0,8,13,0,0,5,9,0,0,18],withStealing=True)
 
-b = Board(board =Constants.DEFAULT_BOARD,withStealing=True)
 
 
-# def test(b):
-#     b.clear_buckets()
 
-# a = deepcopy(b)
-# test(a)
-# b.printBoard()
 
 
 
 print("WELCOME TO MANCALA GAME!!")
+with_steal = int(input('If you want to Enable stealing press 1, if you do not want to play with stealing press 0\n'))
+
 print ("Please choose difficulty of AI")
 Ai_diff = int(input())
 print ("Please choose difficulty of Human in case Human use Play Now!")
 Hu_diff = int(input())
 print ("Please choose player to start\n1- Human\n2- AI")
 player = input()
+
+
+b = Board(board =Constants.DEFAULT_BOARD,withStealing=with_steal)
 
 ai_player = Player(Constants.AI, Ai_diff)
 Hu_player = Player(Constants.HUMAN, Hu_diff)
