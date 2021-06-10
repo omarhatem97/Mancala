@@ -20,7 +20,7 @@ print ("Please choose difficulty of AI")
 Ai_diff = int(input())
 print ("Please choose difficulty of Human in case Human use Play Now!")
 Hu_diff = int(input())
-print ("Please choose player to start\n 1- Human\n2- AI")
+print ("Please choose player to start\n1- Human\n2- AI")
 player = input()
 
 ai_player = Player(Constants.AI, Ai_diff)
