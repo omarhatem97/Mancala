@@ -7,5 +7,5 @@ You can play in stealing mode by doing so:  If the last piece you drop is in an 
 
  When all six pockets on one side of the Mancala board are empty the game ends. The player who still has pieces on his side of the board when the game ends, capture all of those pieces. Count all the pieces in each Mancala. The winner is the player with the most pieces. 
  
- #Video (demonistration)
+ # Video (demonistration)
  you can find the game captured in action with all fucntions in this video : https://www.youtube.com/watch?v=wBvOHpsNktU
