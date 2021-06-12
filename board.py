@@ -119,7 +119,7 @@ class Board(object):
                     self.board[bucket] += 1  # add stones in each bucket
 
                 stones -= 1
-            print("copy bucket:", copy_bucket)
+            # print("copy bucket:", copy_bucket)
             self.board[copy_bucket] = 0
 
             # play  with stealing
@@ -144,3 +144,18 @@ class Board(object):
             return True
 
         return False
+
+
+    def estimate(self):
+        #estimates the value of the current score without digging deep to the tree
+        player1= True
+        ai = False
+        player1_sum = self.get_total_buckets(player1) + 1.5 * self.getScore()[0]
+        ai_sum = self.get_total_buckets(ai) + 1.5 * self.getScore()[1]
+
+        return ai_sum - player1_sum
+
+    
+    
+
+
