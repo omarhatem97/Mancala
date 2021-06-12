@@ -7,12 +7,6 @@ from copy import deepcopy
 
 # b = Board(board =[0,0,0,0,0,1,24,0,0,0,5,0,1,16],withStealing=True)
 
-
-
-
-
-
-
 print("WELCOME TO MANCALA GAME!!")
 with_steal = int(input('If you want to Enable stealing press 1, if you do not want to play with stealing press 0\n'))
 
@@ -71,6 +65,8 @@ while(not b.isOver()):
 b.finalMove(not last_player)    
 b.printBoard()
 
+
 player_score , AI_score = b.getScore()
 print(f'Player Score: {player_score}\n AI Score: {AI_score}')
+inp = input("press any key to quit")
 
